@@ -25,7 +25,7 @@ Plug 'michalbachowski/vim-wombat256mod' " yum
 Plug 'chriskempson/base16-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-emoji'
-" Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-pseudocl'
 Plug 'justinmk/vim-sneak'
 Plug 'mattn/webapi-vim'
 Plug 'schickling/vim-bufonly'
