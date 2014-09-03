@@ -8,8 +8,8 @@ if os == 'Darwin' || os == 'Mac'
     let terminal=':)'
 elseif os == 'Linux'
     let s:linux = 1
-    let browser='Chromium'
-    let terminal='terminus'
+    let browser='Chrome'
+    let terminal='Monaco for Powerline'
 endif
 
 let s:ag = executable('ag')
@@ -18,42 +18,44 @@ let s:ag = executable('ag')
 Plug 'ap/vim-css-color'
 Plug 'bling/vim-airline'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'junegunn/seoul256.vim'
+"Plug 'junegunn/seoul256.vim' " gross
+Plug 'michalbachowski/vim-wombat256mod' " yum
 Plug 'chriskempson/base16-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-emoji'
-Plug 'junegunn/vim-pseudocl'
+" Plug 'junegunn/vim-pseudocl'
 Plug 'justinmk/vim-sneak'
 Plug 'mattn/webapi-vim'
 Plug 'schickling/vim-bufonly'
 Plug 'terryma/vim-expand-region'
-Plug 'tpope/vim-obsession'
+" Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sensible'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --omnisharp-completer' }
-Plug 'vim-scripts/matrix.vim--Yang'
+" Plug 'vim-scripts/matrix.vim--Yang'
 Plug 'vimwiki/vimwiki'
+Plug 'jeetsukumaran/vim-buffergator'
 
 " Tmux
 Plug 'tpope/vim-tbone'
 
 " Lang
-Plug 'captbaritone/better-indent-support-for-php-with-html'
-Plug 'jmcantrell/vim-virtualenv'
+" Plug 'captbaritone/better-indent-support-for-php-with-html'
+" Plug 'jmcantrell/vim-virtualenv'
 Plug 'kchmck/vim-coffee-script'
-Plug 'LokiChaos/vim-tintin'
+" Plug 'LokiChaos/vim-tintin'
 Plug 'lukaszkorecki/CoffeeTags'
-Plug 'mattn/emmet-vim'
-Plug 'nvie/vim-flake8'
+" Plug 'mattn/emmet-vim'
+" Plug 'nvie/vim-flake8'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown',  { 'for': 'markdown' }
 Plug 'scrooloose/syntastic'
-Plug 'shawncplus/phpcomplete.vim'
-Plug 'shmup/phpfolding.vim'
-Plug 'vim-scripts/django.vim'
-Plug 'wting/rust.vim'
-Plug 'fatih/vim-go'
+" Plug 'shawncplus/phpcomplete.vim'
+" Plug 'shmup/phpfolding.vim'
+" Plug 'vim-scripts/django.vim'
+" Plug 'wting/rust.vim'
+Plug 'fatih/vim-go' " https://github.com/fatih/vim-go
 Plug 'wlue/vim-dm-syntax'
 
 " Edit
@@ -64,7 +66,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 
 " Browsing
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf' " https://github.com/junegunn/fzf
 Plug 'mileszs/ack.vim',     { 'on': 'Ack'            }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Yggdroot/indentLine'
@@ -89,7 +91,7 @@ endif
 call plug#end()
 
 """ BASIC
-let mapleader = "\<Space>"
+" let mapleader = "\<Space>"
 
 " code formatting
 set autoindent smartindent                      " automatically indent on new lines
@@ -149,12 +151,13 @@ set showmatch                                   " show matching bracket
 set showmode
 set sidescrolloff=5                             " keep at least 5 lines left/right
 set smarttab                                    " tab and backspace are smart
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 set ttyfast                                     " we havelet g:ctrlp_by_filename = 1 a fast terminal
 set updatecount=100                             " switch every 100 chars
 set wildmenu                                    " menu has tab completion
 set wildmode=longest:full
 set wildignorecase                              " ignore case in tab completion
-set wildignore+=Zend,local,*.pyc
+" set wildignore+=Zend,local,*.pyc
 set wmh=0                                       " minimum window height
 
 set pastetoggle=<Ins>
@@ -167,9 +170,9 @@ set t_kB=[Z
 set t_Co=256
 
 " dark (239-233) light (256-252)
-let g:seoul256_background = 235
-let g:seoul256_light_background = 256
-colorscheme seoul256
+"let g:seoul256_background = 235
+"let g:seoul256_light_background = 256
+colorscheme wombat256mod
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
@@ -420,13 +423,14 @@ let g:indentLine_enabled = 0
 " nerdtree
 let g:NERDTreeChDirMode = 2
 
-" php folding
-let g:DisableAutoPHPFolding = 1
-
 let g:sneak#streak = 1
 let g:Tlist_GainFocus_On_ToggleOpen = 1
 let g:tagbar_autofocus = 1
-let nerdtreeignore = ['\.pyc$']
+
+" let g:Powerline_symbols = 'fancy'
+
+" buffer gator
+let buffergator_viewport_split_policy = 'B'
 
 " emoji
 silent! if emoji#available()
@@ -478,14 +482,19 @@ augroup vimrc
 
   " commentary ft adjustments
   autocmd FileType coffee set commentstring=#\ %s
-  autocmd FileType apache set commentstring=#\ %s
+  "autocmd FileType apache set commentstring=#\ %s
   autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
 
+  autocmd FileType js,php,py,rb,json,html autocmd BufWritePre <buffer> :%s/\s\+$//e
+  autocmd BufEnter *.go set ai sw=2 ts=2 sta et fo=croql
+  autocmd FileType go compiler go
+  autocmd FileType go autocmd BufWritePre <buffer> Fmt
+
   " <f5> autocommand for running files
-  autocmd FileType python nnoremap <buffer> <f5> :exec '!python' shellescape(@%, 1)<cr>
+  " autocmd FileType python nnoremap <buffer> <f5> :exec '!python' shellescape(@%, 1)<cr>
   autocmd FileType sh nnoremap <buffer> <f5> :exec '!bash' shellescape(@%, 1)<cr>
-  autocmd FileType rust nnoremap <buffer> <f5> :exec '!rustc' shellescape(@%, 1)<cr>
-  autocmd FileType rust nnoremap <buffer> <f5> :exec '!cargo run'<cr>
+  "autocmd FileType rust nnoremap <buffer> <f5> :exec '!rustc' shellescape(@%, 1)<cr>
+  "autocmd FileType rust nnoremap <buffer> <f5> :exec '!cargo run'<cr>
   autocmd FileType go nnoremap <buffer> <f5> :GoRun<cr>
   autocmd FileType go nnoremap <buffer> <leader>b :GoBuild<cr>
 
