@@ -18,10 +18,10 @@ let s:ag = executable('ag')
 Plug 'ap/vim-css-color'
 Plug 'bling/vim-airline'
 Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-"Plug 'junegunn/seoul256.vim' " gross
-Plug 'michalbachowski/vim-wombat256mod' " yum
+Plug 'junegunn/seoul256.vim' 
+Plug 'michalbachowski/vim-wombat256mod'
 Plug 'chriskempson/base16-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-emoji'
@@ -170,9 +170,10 @@ set t_kB=[Z
 set t_Co=256
 
 " dark (239-233) light (256-252)
-"let g:seoul256_background = 235
+let g:seoul256_background = 235
 "let g:seoul256_light_background = 256
-colorscheme wombat256mod
+colorscheme seoul256
+"colorscheme wombat256mod
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
@@ -427,7 +428,8 @@ let g:sneak#streak = 1
 let g:Tlist_GainFocus_On_ToggleOpen = 1
 let g:tagbar_autofocus = 1
 
-" let g:Powerline_symbols = 'fancy'
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'wombat'
 
 " buffer gator
 let buffergator_viewport_split_policy = 'B'
