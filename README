@@ -1,3 +1,9 @@
 vim dotfiles
 
+sudo apt-get install build-essential cmake python-dev
+
 git clone && ./install.sh
+
+Post install 
+ ~/.vim/plugged/YouCompleteMe && ./install.sh --clang-completer
+ 
