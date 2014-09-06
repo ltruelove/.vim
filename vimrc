@@ -490,7 +490,6 @@ augroup vimrc
   autocmd FileType js,php,py,rb,json,html autocmd BufWritePre <buffer> :%s/\s\+$//e
   autocmd BufEnter *.go set ai sw=2 ts=2 sta et fo=croql
   autocmd FileType go compiler go
-  autocmd FileType go autocmd BufWritePre <buffer> Fmt
 
   " <f5> autocommand for running files
   " autocmd FileType python nnoremap <buffer> <f5> :exec '!python' shellescape(@%, 1)<cr>
